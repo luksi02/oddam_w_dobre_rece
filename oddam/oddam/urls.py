@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from oddam_app.views import IndexView, LoginView
+from oddam_app.views import IndexView, LoginView, AddDonationView, RegisterView
 
 
 
@@ -24,4 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('login/', LoginView.as_view(), name='login'),
+    path('add_donation/', AddDonationView.as_view(), name='add_donation'),
+    path('register/', RegisterView.as_view(), name='register'),
 ]
