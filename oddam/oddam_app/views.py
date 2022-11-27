@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.http import request, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -36,8 +37,17 @@ class IndexView(View):
 class LoginView(View):
 
     def get(self, request):
+     return render(request, 'login.html')
 
-        return render(request, 'login.html')
+    def post(self, request):
+        login_username = request.POST.get("email")
+        login_password = request.POST.get("password")
+        user = authenticate(request, username=login_username, password=login_password)
+        """if user is None:
+            return render(request, 'login.html', {'message': "Niepoprawne dane!"})"""
+        #else:
+        login(request, user)  #not working
+        return redirect(reverse('index'))
     
 
 class AddDonationView(View):
@@ -56,12 +66,13 @@ class RegisterView(View):
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         username = request.POST.get("email")
-        password = request.POST.get("password")
+        password1 = request.POST.get("password")
         password2 = request.POST.get("password2")
-        if username and password == password2:
+        if username and password1 == password2:
+            password = password1
             User.objects.create(first_name=first_name, last_name=last_name, username=username, password=password)
             return redirect(reverse('login'))
-        return render('register.html')
+        return render(request, 'register.html', {'message':"Niepoprawne dane!"})
 
 
         """register_form = RegisterForm
