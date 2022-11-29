@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import request, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -46,7 +46,7 @@ class LoginView(View):
         if user is not None:
             login(request, user)  #work work work
             return redirect(reverse('index'))
-        elif User.objects.filter(username=login_username) is None:
+        elif not User.objects.filter(username=login_username):
             return redirect(reverse('register'))
         else:
             return render(request, 'login.html', {'message': "Niepoprawne dane!"})
@@ -80,9 +80,8 @@ class RegisterView(View):
         return render(request, 'register.html', {'message':"Niepoprawne dane!"})
 
 
-        """register_form = RegisterForm
-        if register_form['password'] == register_form['password2']:
-            register_form.save()
-            return redirect(reverse('login'))
-        return HttpResponse("Crashed!")
-"""
+class LogoutView(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect(reverse('index'))
