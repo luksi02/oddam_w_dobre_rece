@@ -43,12 +43,14 @@ class LoginView(View):
         login_username = request.POST.get("email")
         login_password = request.POST.get("password")
         user = authenticate(request, username=login_username, password=login_password)
-        """if user is None:
-            return render(request, 'login.html', {'message': "Niepoprawne dane!"})"""
-        #else:
-        login(request, user)  #not working
-        return redirect(reverse('index'))
-    
+        if user is not None:
+            login(request, user)  #work work work
+            return redirect(reverse('index'))
+        elif User.objects.filter(username=login_username) is None:
+            return redirect(reverse('register'))
+        else:
+            return render(request, 'login.html', {'message': "Niepoprawne dane!"})
+
 
 class AddDonationView(View):
 
@@ -68,9 +70,12 @@ class RegisterView(View):
         username = request.POST.get("email")
         password1 = request.POST.get("password")
         password2 = request.POST.get("password2")
+        #user = authenticate(request, username=username, password=password)
         if username and password1 == password2:
             password = password1
-            User.objects.create(first_name=first_name, last_name=last_name, username=username, password=password)
+            user = User.objects.create(first_name=first_name, last_name=last_name, username=username)
+            user.set_password(password)
+            user.save()
             return redirect(reverse('login'))
         return render(request, 'register.html', {'message':"Niepoprawne dane!"})
 
