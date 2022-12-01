@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import request, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -44,19 +45,22 @@ class LoginView(View):
         login_password = request.POST.get("password")
         user = authenticate(request, username=login_username, password=login_password)
         if user is not None:
-            login(request, user)  #work work work
-            return redirect(reverse('index'))
+            login(request, user)
+            url = request.GET.get('next', 'index')#work work work
+            return redirect(url)
         elif not User.objects.filter(username=login_username):
             return redirect(reverse('register'))
         else:
             return render(request, 'login.html', {'message': "Niepoprawne dane!"})
 
 
-class AddDonationView(View):
+class AddDonationView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        return render(request, 'form.html')
+        categories = Category.objects.all()
+
+        return render(request, 'form.html', {'categories': categories})
     
     
 class RegisterView(View):
