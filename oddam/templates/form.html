@@ -74,42 +74,6 @@
 
             {% endfor %}
 
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  name="categories"
-                  value="clothes-useless"
-                />
-                <span class="checkbox"></span>
-                <span class="description">ubrania, do wyrzucenia</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="toys" />
-                <span class="checkbox"></span>
-                <span class="description">zabawki</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="books" />
-                <span class="checkbox"></span>
-                <span class="description">książki</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="other" />
-                <span class="checkbox"></span>
-                <span class="description">inne</span>
-              </label>
-            </div>
-
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
             </div>
@@ -132,11 +96,27 @@
             </div>
           </div>
 
-
-
-          <!-- STEP 4 -->
+          <!-- STEP 3 -->
           <div data-step="3">
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+
+            {% for organisation in categories_foundations %}
+             <div class="form-group form-group--checkbox">
+              <label>
+                <input type="radio" name="organization" value="old" />
+                <span class="checkbox radio"></span>
+                <span class="description">
+                  <div class="title">{{ organisation.name }} id: {{ organisation.id }} </div>
+                  <div class="subtitle">
+                    {{ organisation.description }} id: {{ organisation.id }}
+                    Cel i misja: Pomoc dla osób nie posiadających miejsca
+                    zamieszkania
+                  </div>
+                </span>
+              </label>
+            </div>
+            {% endfor %}
+
 
             <div class="form-group form-group--checkbox">
               <label>

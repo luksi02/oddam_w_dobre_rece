@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views import View
 from django.contrib.auth.models import User
 
-from oddam_app.models import Donation, Institution, Category
+from oddam_app.models import Donation, Institution, Category, CategoryInstitution
 
 from oddam_app.forms import RegisterForm
 
@@ -26,8 +26,6 @@ class IndexView(View):
         institutions_foundations = Institution.objects.filter(type=0)
         institutions_organisations = Institution.objects.filter(type=1)
         institutions_local = Institution.objects.filter(type=2)
-
-        #print(Institution.objects.get(id=1).categories)
 
         return render(request, 'index.html', {'liczba_wspartych_organizacji':liczba_wspartych_organizacji,
                                               'liczba_oddanych_workow':liczba_oddanych_workow,
@@ -59,9 +57,13 @@ class AddDonationView(LoginRequiredMixin, View):
     def get(self, request):
 
         categories = Category.objects.all()
+        categories_institutions = CategoryInstitution.objects.all()
+        institutions = Institution.objects.all()
 
-        return render(request, 'form.html', {'categories': categories})
-    
+        return render(request, 'form.html', {'categories': categories,
+                                             'institutions': institutions,
+                                             'categories_institutions': categories_institutions})
+
     
 class RegisterView(View):
 
