@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import request, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.contrib.auth.models import User
@@ -91,3 +91,11 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect(reverse('index'))
+
+
+class UserDetailsView(LoginRequiredMixin, View):
+
+    def get(self, request, id):
+
+        user = get_object_or_404(User, id=id)
+        return render(request, 'user_details.html', {'user':user})
