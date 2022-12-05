@@ -17,6 +17,9 @@ class Institution(models.Model):
     type = models.IntegerField(choices=INSTITUTION_TYPES, default=0)
     categories = models.ManyToManyField(Category, through='CategoryInstitution')
 
+    def __str__(self):
+        return f"{self.name}: {self.description}"
+
 class CategoryInstitution(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
