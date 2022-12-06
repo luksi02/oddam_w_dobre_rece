@@ -18,7 +18,7 @@
             Witaj {{ user.username }}
             <ul class="dropdown">
               <li><a href="{% url 'user_details' user.id %}">Profil</a></li>
-              <li><a href="#">Ustawienia</a></li>
+              <li><a href="{% url 'password_check' user.id %}#password_check">Ustawienia</a></li>
               {% if user.is_superuser %}
               <li><a href="{% url 'admin:index' %}">Panel administracyjny</a></li>
               {% endif %}

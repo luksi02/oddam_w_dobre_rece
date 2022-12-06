@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    </header>
+
+    <section id="password_check" class="login-page">
+      <h2>Zmien dane uzytkownika</h2>
+      <form action="" method="post">
+          {% csrf_token %}
+        <div class="form-group">
+          <input type="text" name="first_name" placeholder="Imię" />
+        </div>
+         <div class="form-group">
+          <input type="text" name="last_name" placeholder="Nazwisko" />
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email" />
+        </div>
+           <div class="form-group">
+          <input type="password" name="old_password" placeholder="Stare Hasło" />
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Hasło" />
+        </div>
+        <div class="form-group">
+          <input type="password" name="password2" placeholder="Powtórz hasło" />
+        </div>
+
+        <div class="form-group form-group--buttons">
+          <button class="btn" type="submit">Zmien dane</button>
+        </div>
+      </form>
+    </section>
+
+{% endblock %}

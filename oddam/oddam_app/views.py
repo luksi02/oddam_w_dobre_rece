@@ -108,10 +108,34 @@ class PasswordBeforeSettings(View):
 
     def post(self, request, id):
         user = get_object_or_404(User, id=id)
-        password = request.POST.get("password")
+        password_checked = request.POST.get("password")
         #try with authenticate(user=user, password=password_input"
         print(user.password)
-        if password == user.password: #not working...
+        user = authenticate(request, username=user.username, password=password_checked)
+        if user is not None:
             print('hello_word')
-            return redirect(reverse('register'))
+            url = reverse('change_user_settings', args=(id,))
+            return redirect(url)
         return render(request, 'password_check.html', {'message':"Niepoprawne dane!"})
+
+
+class ChangeUserSettingsView(View):
+
+    def get(self, request, id):
+        user = get_object_or_404(User, id=id)
+        return render(request, 'change_user_settings.html')
+
+    """def post(self, request, id):
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        username = request.POST.get("email")
+        password1 = request.POST.get("password")
+        password2 = request.POST.get("password2")
+        #user = authenticate(request, username=username, password=password)
+        if username and password1 == password2:
+            password = password1
+            user = User.objects.create(first_name=first_name, last_name=last_name, username=username)
+            user.set_password(password)
+            user.save()
+            return redirect(reverse('login'))
+        return render(request, 'register.html', {'message':"Niepoprawne dane!"})"""
