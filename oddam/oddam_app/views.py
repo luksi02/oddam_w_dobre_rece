@@ -99,3 +99,19 @@ class UserDetailsView(LoginRequiredMixin, View):
 
         user = get_object_or_404(User, id=id)
         return render(request, 'user_details.html', {'user':user})
+
+class PasswordBeforeSettings(View):
+
+    def get(self, request, id):
+        user = get_object_or_404(User, id=id)
+        return render(request, 'password_check.html', {'user':user})
+
+    def post(self, request, id):
+        user = get_object_or_404(User, id=id)
+        password = request.POST.get("password")
+        #try with authenticate(user=user, password=password_input"
+        print(user.password)
+        if password == user.password: #not working...
+            print('hello_word')
+            return redirect(reverse('register'))
+        return render(request, 'password_check.html', {'message':"Niepoprawne dane!"})
