@@ -130,15 +130,15 @@ class ChangeUserSettingsView(View):
         password_old = request.POST.get("password_old")
         user = authenticate(request, username=user.username, password=password_old)
 
-        user.first_name = request.POST.get("first_name")
-        user.last_name = request.POST.get("last_name")
-        user.username = request.POST.get("email")
+        new_first_name = request.POST.get("first_name")
+        new_last_name = request.POST.get("last_name")
+        new_username = request.POST.get("email")
         password1 = request.POST.get("password")
         password2 = request.POST.get("password2")
         #user = authenticate(request, username=username, password=password)
         if password1 == password2:
-            password = password1
-            user.set_password(password)
-            user.save()
+            user.set_password(password1)
+            user.save(first_name=first_name, last_name=last_name, username=username)
+
             return redirect(reverse('login'))
         return render(request, 'register.html', {'message':"Niepoprawne dane!"})

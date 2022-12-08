@@ -113,6 +113,8 @@ document.addEventListener("DOMContentLoaded", function() {
           this.dropdown.appendChild(this.current);
           this.valueInput.value = el.value;
           li.classList.add("selected");
+
+          this.console.log("click click") // LG
         }
 
         this.ul.appendChild(li);
@@ -132,6 +134,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (target.tagName === "LI") {
           this.valueInput.value = target.dataset.value;
           this.current.innerText = target.innerText;
+
+          this.console.log("click click") // LG
         }
       });
     }
@@ -197,9 +201,49 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.addEventListener("click", e => {
           e.preventDefault();
           this.currentStep++;
+          if (this.currentStep===2)
+          {
+            // LG_injection
+            get_that_data(){
+              var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
+              let LG_chosen_ones_checkboxes = []
+
+              LG_checkboxes.forEach(function (checkbox))
+                {
+                  checkbox.addEventListener('change', function () {
+                    LG_chosen_ones_checkboxes =
+                      Array.form(LG_checkboxes)
+                      .filter(i => i.checked)
+                      .map(i => i.value)   // tutej moze zmnienbic value na cos innego
+                  console.log(LG_chosen_ones_checkboxes)
+                  })
+                }
+            } //LG_injection
+          }
           this.updateForm();
         });
       });
+
+      /** LG */
+      function get_that_data() {
+        var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
+        let LG_chosen_ones_checkboxes = []
+
+        LG_checkboxes.forEach(function (checkbox))
+        {
+          checkbox.addEventListener('change', function () {
+            LG_chosen_ones_checkboxes =
+                Array.form(LG_checkboxes)
+                    .filter(i => i.checked)
+                    .map(i => i.value)   // tutej moze zmnienbic value na cos innego
+            console.log(LG_chosen_ones_checkboxes)
+          })
+        }
+      }
+      const LG_button = document.querySelector("button")
+
+
+      /** LG */
 
       // Previous step
       this.$prev.forEach(btn => {
