@@ -100,6 +100,22 @@
           <div data-step="3">
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
+                 {% for organisation in institutions %}
+             <div class="form-group form-group--checkbox">
+              <label>
+                <input type="radio" name="organization" value="old" />
+                <span class="checkbox radio"></span>
+                <span class="description">
+                  <div class="title">{{ organisation.name }} id: {{ organisation.id }} </div>
+                  <div class="subtitle">
+                    {{ organisation.description }} id: {{ organisation.id }}
+
+                  </div>
+                </span>
+              </label>
+            </div>
+            {% endfor %}
+
             {% for organisation in categories_foundations %}
              <div class="form-group form-group--checkbox">
               <label>
@@ -109,42 +125,13 @@
                   <div class="title">{{ organisation.name }} id: {{ organisation.id }} </div>
                   <div class="subtitle">
                     {{ organisation.description }} id: {{ organisation.id }}
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
+
                   </div>
                 </span>
               </label>
             </div>
             {% endfor %}
 
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="radio" name="organization" value="old" />
-                <span class="checkbox radio"></span>
-                <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
-                  </div>
-                </span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="radio" name="organization" value="old" />
-                <span class="checkbox radio"></span>
-                <span class="description">
-                  <div class="title">Fundacja “Dla dzieci"</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                    życiowej.
-                  </div>
-                </span>
-              </label>
-            </div>
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>

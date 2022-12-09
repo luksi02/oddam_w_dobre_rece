@@ -203,22 +203,10 @@ document.addEventListener("DOMContentLoaded", function() {
           this.currentStep++;
           if (this.currentStep===2)
           {
+            console.log("dupa")
             // LG_injection
-            get_that_data(){
-              var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
-              let LG_chosen_ones_checkboxes = []
-
-              LG_checkboxes.forEach(function (checkbox))
-                {
-                  checkbox.addEventListener('change', function () {
-                    LG_chosen_ones_checkboxes =
-                      Array.form(LG_checkboxes)
-                      .filter(i => i.checked)
-                      .map(i => i.value)   // tutej moze zmnienbic value na cos innego
-                  console.log(LG_chosen_ones_checkboxes)
-                  })
-                }
-            } //LG_injection
+            get_that_data()
+            //LG_injection
           }
           this.updateForm();
         });
@@ -226,19 +214,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
       /** LG */
       function get_that_data() {
-        var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
-        let LG_chosen_ones_checkboxes = []
-
-        LG_checkboxes.forEach(function (checkbox))
-        {
-          checkbox.addEventListener('change', function () {
-            LG_chosen_ones_checkboxes =
-                Array.form(LG_checkboxes)
-                    .filter(i => i.checked)
-                    .map(i => i.value)   // tutej moze zmnienbic value na cos innego
-            console.log(LG_chosen_ones_checkboxes)
-          })
-        }
+        consle.log("inside_get_that_data")
+      //   var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
+      //   let LG_chosen_ones_checkboxes = []
+      //
+      //   LG_checkboxes.forEach(function (checkbox))
+      //   {
+      //     checkbox.addEventListener('change', function () {
+      //       LG_chosen_ones_checkboxes =
+      //           Array.form(LG_checkboxes)
+      //               .filter(i => i.checked)
+      //               .map(i => i.value)   // tutej moze zmnienbic value na cos innego
+      //       console.log(LG_chosen_ones_checkboxes)
+      //     })
+      //   }
       }
       const LG_button = document.querySelector("button")
 

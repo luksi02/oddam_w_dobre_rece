@@ -87,7 +87,12 @@
               <div class="subtitle">Cel i misja: {{ object.description }}</div>
             </div>
 
-            <div class="col"><div class="text">{{ object.categories }}</div></div>
+            <div class="col"><div class="text">
+            {% for item in object.categories.all %}
+            {{ item.name }},
+            {% endfor %}
+            </div>
+            </div>
           </li>
           {% endfor %}
 
@@ -115,7 +120,12 @@
               <div class="subtitle">Cel i misja: {{ object.description }}</div>
             </div>
 
-            <div class="col"><div class="text">{{ object.categories }}</div></div>
+            <div class="col"><div class="text">
+            {% for item in object.categories.all %}
+            {{ item.name }},
+            {% endfor %}
+            </div>
+            </div>
           </li>
           {% endfor %}
         </ul>
@@ -139,10 +149,15 @@
           <li>
             <div class="col">
               <div class="title">{{ object.name }}</div>
-              <div class="subtitle">{{ object.description }}</div>
+              <div class="subtitle">Cel i misja: {{ object.description }}</div>
             </div>
 
-            <div class="col"><div class="text">{{ object.categories }}</div></div>
+            <div class="col"><div class="text">
+            {% for item in object.categories.all %}
+            {{ item.name }},
+            {% endfor %}
+            </div>
+            </div>
           </li>
           {% endfor %}
         </ul>
