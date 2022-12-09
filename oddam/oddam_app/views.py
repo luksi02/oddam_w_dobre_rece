@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.contrib.auth.models import User
+# from django import request
 
 from oddam_app.models import Donation, Institution, Category, CategoryInstitution
 
@@ -102,43 +103,50 @@ class UserDetailsView(LoginRequiredMixin, View):
 
 class PasswordBeforeSettings(View):
 
-    def get(self, request, id):
-        user = get_object_or_404(User, id=id)
-        return render(request, 'password_check.html', {'user':user})
+    def get(self, request):
 
-    def post(self, request, id):
-        user = get_object_or_404(User, id=id)
+        user = request.user
+        # user = get_object_or_404(User, id=id)
+        return render(request, 'password_check.html') #, {'user':user})
+
+    def post(self, request):
+        user = request.user
+        # user = get_object_or_404(User, id=id)
         password_checked = request.POST.get("password")
         #try with authenticate(user=user, password=password_input"
-        print(user.password)
+        # print(user.password)
         user = authenticate(request, username=user.username, password=password_checked)
         if user is not None:
-            print('hello_word')
-            url = reverse('change_user_settings', args=(id,))
+            # print('hello_word')
+            url = reverse('change_user_settings') #, args=(id,))
             return redirect(url)
         return render(request, 'password_check.html', {'message':"Niepoprawne dane!"})
 
 
 class ChangeUserSettingsView(View):
 
-    def get(self, request, id):
-        user = get_object_or_404(User, id=id)
+    def get(self, request):
+        user = request.user
+        # user = get_object_or_404(User, id=id)
         return render(request, 'change_user_settings.html')
 
-    def post(self, request, id):
-        user = get_object_or_404(User, id=id)
-        password_old = request.POST.get("password_old")
-        user = authenticate(username=user.username, password=password_old)
+    def post(self, request):
+        user = request.user
+        # user = get_object_or_404(User, id=id)
+        # password_old = request.POST.get("password_old")
+        # user = authenticate(username=user.username, password=password_old)
 
-        new_first_name = request.POST.get("first_name")
-        new_last_name = request.POST.get("last_name")
-        new_username = request.POST.get("email")
+        # new_first_name = request.POST.get("first_name")
+        user.first_name = request.POST.get("first_name")
+        user.last_name = request.POST.get("last_name")
+        # new_last_name = request.POST.get("last_name")
+        # new_username = request.POST.get("email")
         password1 = request.POST.get("password")
         password2 = request.POST.get("password2")
         #user = authenticate(request, username=username, password=password)
         if password1 == password2:
             user.set_password(password1)
-            user.first_name=new_first_name
+            # user.first_name=new_first_name
             user.save()  #first_name=new_first_name, last_name=new_last_name, username=new_username
 
             return redirect(reverse('login'))
