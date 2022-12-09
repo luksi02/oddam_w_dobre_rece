@@ -5,14 +5,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.contrib.auth.models import User
-# from django import request
 
 from oddam_app.models import Donation, Institution, Category, CategoryInstitution
 
 from oddam_app.forms import RegisterForm
 
 
-# Create your views here.
 class IndexView(View):
 
     def get(self, request):
@@ -60,7 +58,6 @@ class AddDonationView(LoginRequiredMixin, View):
         categories = Category.objects.all()
         categories_institutions = CategoryInstitution.objects.all()
         institutions = Institution.objects.all()
-
         return render(request, 'form.html', {'categories': categories,
                                              'institutions': institutions,
                                              'categories_institutions': categories_institutions})
@@ -97,28 +94,21 @@ class LogoutView(View):
 class UserDetailsView(LoginRequiredMixin, View):
 
     def get(self, request, id):
-
         user = get_object_or_404(User, id=id)
         return render(request, 'user_details.html', {'user':user})
 
 class PasswordBeforeSettings(View):
 
     def get(self, request):
-
         user = request.user
-        # user = get_object_or_404(User, id=id)
         return render(request, 'password_check.html') #, {'user':user})
 
     def post(self, request):
         user = request.user
-        # user = get_object_or_404(User, id=id)
         password_checked = request.POST.get("password")
-        #try with authenticate(user=user, password=password_input"
-        # print(user.password)
         user = authenticate(request, username=user.username, password=password_checked)
         if user is not None:
-            # print('hello_word')
-            url = reverse('change_user_settings') #, args=(id,))
+            url = reverse('change_user_settings')
             return redirect(url)
         return render(request, 'password_check.html', {'message':"Niepoprawne dane!"})
 
@@ -127,27 +117,16 @@ class ChangeUserSettingsView(View):
 
     def get(self, request):
         user = request.user
-        # user = get_object_or_404(User, id=id)
         return render(request, 'change_user_settings.html')
 
     def post(self, request):
         user = request.user
-        # user = get_object_or_404(User, id=id)
-        # password_old = request.POST.get("password_old")
-        # user = authenticate(username=user.username, password=password_old)
-
-        # new_first_name = request.POST.get("first_name")
         user.first_name = request.POST.get("first_name")
         user.last_name = request.POST.get("last_name")
-        # new_last_name = request.POST.get("last_name")
-        # new_username = request.POST.get("email")
         password1 = request.POST.get("password")
         password2 = request.POST.get("password2")
-        #user = authenticate(request, username=username, password=password)
         if password1 == password2:
             user.set_password(password1)
-            # user.first_name=new_first_name
-            user.save()  #first_name=new_first_name, last_name=new_last_name, username=new_username
-
+            user.save()
             return redirect(reverse('login'))
         return render(request, 'register.html', {'message':"Niepoprawne dane!"})
