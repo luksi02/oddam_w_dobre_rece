@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
           this.currentStep++;
           if (this.currentStep===2)
           {
-            console.log("dupa")
+            console.log("tylna czensc ciala")
             // LG_injection
             get_that_data()
             //LG_injection
@@ -213,20 +213,32 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
       /** LG */
+    function get_that_data() {
+        let categories = document.querySelectorAll("input[name=categories]");
+        let categoriesValues = []
+        for (var item of categories) {
+          if (item.checked === true) {
 
+            categoriesValues.push(item.value)
+            console.log("checked")
+            console.log(categoriesValues)
+            console.log("checked", categoriesValues)
+          }
+        }
+      }
 
     // tu jestem 15:17 - nie dziala
-      function get_that_data() {
-  var checkBox = document.querySelectorAll("input[type=checkbox][name=categories]");
-  // If the checkbox is checked, display the output text
-  if (checkBox.checked == true){
-    // text.style.display = "block";
-      console.log("checked")
-  } else {
-    // text.style.display = "none";
-      console.log("not checked")
-  }
-}
+//       function get_that_data() {
+//   var checkBox = document.querySelectorAll("input[type=checkbox][name=categories]");
+//   // If the checkbox is checked, display the output text
+//   if (checkBox.checked == true){
+//     // text.style.display = "block";
+//       console.log("checked")
+//   } else {
+//     // text.style.display = "none";
+//       console.log("not checked")
+//   }
+// }
 
       /** LG */
 
