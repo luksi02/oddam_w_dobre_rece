@@ -213,26 +213,20 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
       /** LG */
+
+
+    // tu jestem 15:17 - nie dziala
       function get_that_data() {
-        console.log("inside_get_that_data")
-         var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
-         let LG_chosen_ones_checkboxes = []
-        console.log(LG_checkboxes)
-
-         LG_checkboxes.forEach(function(checkbox) {
-           console.log("for_each")
-           checkbox.addEventListener('change', function() {
-             LG_chosen_ones_checkboxes =
-                 Array.from(LG_checkboxes)
-                     .filter(i => i.checked)
-                     console.log("chcecked")
-                     .map(i => i.value)   // tutej moze zmnienbic value na cos innego
-             console.log(LG_chosen_ones_checkboxes, " also_something")
-           })
-         })
-      }
-      const LG_button = document.querySelector("button")
-
+  var checkBox = document.querySelectorAll("input[type=checkbox][name=categories]");
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    // text.style.display = "block";
+      console.log("checked")
+  } else {
+    // text.style.display = "none";
+      console.log("not checked")
+  }
+}
 
       /** LG */
 
