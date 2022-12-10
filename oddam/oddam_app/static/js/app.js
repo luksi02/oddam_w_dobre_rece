@@ -214,20 +214,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
       /** LG */
       function get_that_data() {
-        consle.log("inside_get_that_data")
-      //   var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
-      //   let LG_chosen_ones_checkboxes = []
-      //
-      //   LG_checkboxes.forEach(function (checkbox))
-      //   {
-      //     checkbox.addEventListener('change', function () {
-      //       LG_chosen_ones_checkboxes =
-      //           Array.form(LG_checkboxes)
-      //               .filter(i => i.checked)
-      //               .map(i => i.value)   // tutej moze zmnienbic value na cos innego
-      //       console.log(LG_chosen_ones_checkboxes)
-      //     })
-      //   }
+        console.log("inside_get_that_data")
+         var LG_checkboxes = document.querySelectorAll("input[type=checkbox][name=categories]")
+         let LG_chosen_ones_checkboxes = []
+        console.log(LG_checkboxes)
+
+         LG_checkboxes.forEach(function(checkbox) {
+           console.log("for_each")
+           checkbox.addEventListener('change', function() {
+             LG_chosen_ones_checkboxes =
+                 Array.from(LG_checkboxes)
+                     .filter(i => i.checked)
+                     console.log("chcecked")
+                     .map(i => i.value)   // tutej moze zmnienbic value na cos innego
+             console.log(LG_chosen_ones_checkboxes, " also_something")
+           })
+         })
       }
       const LG_button = document.querySelector("button")
 
