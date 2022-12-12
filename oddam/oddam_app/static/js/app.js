@@ -201,56 +201,101 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.addEventListener("click", e => {
           e.preventDefault();
           this.currentStep++;
-          let checkedArray = []
+
+          // let checkedArray = []
           if (this.currentStep===2)
-          {
-            console.log("tylna czensc ciala")
-            // LG_injection
-            get_that_data_step2()
-            //LG_injection
-          }
-          if (this.currentStep===4)
-          {
-            console.log("tylna czensc ciala, part 4")
-            // LG_injection
-            get_that_data_step4()
-            //LG_injection
-          }
+           {
+           console.log("tylna czensc ciala")
+          //   // LG_injection
+          //   get_that_data_step2()
+          //   //LG_injection
+             magic();
+           }
+          // if (this.currentStep===4)
+          // {
+          //   console.log("tylna czensc ciala, part 4")
+          //   // LG_injection
+          //   get_that_data_step4()
+          //   //LG_injection
+          // }
+
+
+
+
+
           this.updateForm();
         });
       });
 
       /** LG */
-    function get_that_data_step2() {
-        let categories = document.querySelectorAll("input[name=categories]");
-        let categoriesValues = []
-        let checkedArray = []
-        for (var item of categories) {
-          if (item.checked === true) {
 
-            // categoriesValues.push(item.value)
-            checkedArray.push(item.value)
-            console.log("checked")
-            // console.log(categoriesValues)
-            // console.log("checked", categoriesValues)
-            console.log("checked", checkedArray)
-            return checkedArray
+      //   tutaj poniej funkcja dziala - ale nie umiem jej przekazac do czesci 3-4 formularza
+
+    // // function get_that_data_step2() {
+    //     let categories = document.querySelectorAll("input[name=categories]");
+    //     let categoriesValues = []
+    //     let checkedArray = []
+    //     for (var item of categories) {
+    //       if (item.checked === true) {
+    //
+    //         // categoriesValues.push(item.value)
+    //         checkedArray.push(item.value)
+    //         console.log("checked")
+    //         // console.log(categoriesValues)
+    //         // console.log("checked", categoriesValues)
+    //         console.log("checked", checkedArray)
+    //         return checkedArray
+    //       }
+    //     }
+      // }
+
+
+      //  a tutaj jest fragment funkcji ktora niestety nie dziala - nie przekazuje ktore sa "checked"
+      //
+      // // function get_that_data_step4() {
+      //   const institutions = document.querySelectorAll('#institution');
+      //   institutions.forEach(function (institution) {
+      //     institution.hidden = !Array.from(institution.getAttribute('data-cats')).some(r => checkedArray.includes(r));
+      //   });
+      //   if (checkedArray.length === 0) {
+      //     institutions.forEach(institution => institution.hidden = false);
+      //   }
+      // // }
+//       koniec zakomentowanych funkcji
+
+
+//       a tutaj sprobowalem to poloczyc w jedna funkcje ale nie wyszlo - bede musial do tego wrocic
+
+function magic() {
+        const costam = document.querySelector('#step1_btn').addEventListener("click", e => {
+          let categories = document.querySelectorAll("input[name=categories]");
+          let categoriesValues = []
+          let checkedArray = []
+          for (var item of categories) {
+            if (item.checked === true) {
+
+              // categoriesValues.push(item.value)
+              checkedArray.push(item.value)
+              console.log("checked")
+              // console.log(categoriesValues)
+              // console.log("checked", categoriesValues)
+              console.log("checked", checkedArray)
+            }
           }
-        }
+          const institutions = document.querySelectorAll('#institution');
+          institutions.forEach(function (institution) {
+            institution.hidden = !Array.from(institution.getAttribute('data-cats')).some(r => checkedArray.includes(r));
+          });
+          if (checkedArray.length === 0) {
+            institutions.forEach(institution => institution.hidden = false);
+          }
+        })
       }
 
-      function get_that_data_step4() {
-        const institutions = document.querySelectorAll('#institution');
-        institutions.forEach(function (institution) {
-          institution.hidden = !Array.from(institution.getAttribute('data-cats')).some(r => checkedArray.includes(r));
-        });
-        if (checkedArray.length === 0) {
-          institutions.forEach(institution => institution.hidden = false);
-        }
-      }
+    //   niestety nie dziala to tak jakbym chcial - nadaje wszystkim parametr "hidden" zamiast wybrancom
+    //   trzeba bedzie powrocic do tego -- no coz
 
-
-    // tu jestem 15:17 - nie dziala
+    // tu jestem 2022_12_11___15:17 - nie dziala
 //       function get_that_data() {
 //   var checkBox = document.querySelectorAll("input[type=checkbox][name=categories]");
 //   // If the checkbox is checked, display the output text
@@ -262,6 +307,10 @@ document.addEventListener("DOMContentLoaded", function() {
 //       console.log("not checked")
 //   }
 // }
+
+
+
+      // no i tutaj konczy sie moj JS, jeszcze do tego wroce
 
       /** LG */
 
@@ -277,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Form submit
       this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
     }
+
 
     /**
      * Update form front-end
